@@ -3,20 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Registration Form</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
     }
-    label {
-      display: block;
-      margin-top: 8px;
+
+    .field {
+      margin-top: 10px;
     }
-    input, select {
-      width: 250px;
+
+    input[type="text"], select {
+      width: 220px;
       padding: 4px;
-      margin-top: 4px;
     }
+
+    .inline label {
+      margin-right: 15px;
+    }
+
     button {
       margin-top: 15px;
     }
@@ -24,108 +30,109 @@
 </head>
 <body>
 
-<div id="formSection">
-  <h2>Register</h2>
+<h2>Register</h2>
 
-  <!-- IMPORTANT: form with autocomplete -->
-  <form autocomplete="on" onsubmit="event.preventDefault(); submitForm();">
+<form autocomplete="on" onsubmit="event.preventDefault(); submitForm();">
 
-    <label>
-      Username:
-      <input type="text"
-             id="username"
-             name="username"
-             autocomplete="username">
-    </label>
+  <!-- Username -->
+  <div class="field">
+    Username:
+    <input type="text" id="username" name="username" autocomplete="username">
+  </div>
 
-    <label>
-      Firstname:
-      <input type="text"
-             id="firstname"
-             name="given-name"
-             autocomplete="given-name">
-    </label>
+  <!-- Firstname (FORCED suggestion) -->
+  <div class="field">
+    Firstname:
+    <input type="text" id="firstname" list="fnameList">
+    <datalist id="fnameList">
+      <option value="ATHIPHAT">
+    </datalist>
+  </div>
 
-    <label>
-      Lastname:
-      <input type="text"
-             id="lastname"
-             name="family-name"
-             autocomplete="family-name">
-    </label>
+  <!-- Lastname (FORCED suggestion) -->
+  <div class="field">
+    Lastname:
+    <input type="text" id="lastname" list="lnameList">
+    <datalist id="lnameList">
+      <option value="HIRUNADISUAN">
+    </datalist>
+  </div>
 
-    <label>Gender:</label>
+  <!-- Gender -->
+  <div class="field inline">
+    Gender:
     <label><input type="radio" name="gender" value="male"> Male</label>
     <label><input type="radio" name="gender" value="female"> Female</label>
     <label><input type="radio" name="gender" value="other"> Other</label>
+  </div>
 
-    <label>Hobbies:</label>
+  <!-- Hobbies -->
+  <div class="field inline">
+    Hobbies:
     <label><input type="checkbox" value="music"> Music</label>
     <label><input type="checkbox" value="movies"> Movies</label>
     <label><input type="checkbox" value="plastic model"> Plastic Model</label>
+  </div>
 
-    <label>
-      Role:
-      <select id="role" name="role">
-        <option value="">Select role</option>
-        <option value="general staff">General Staff</option>
-        <option value="developer">Developer</option>
-        <option value="system analyst">System Analyst</option>
-      </select>
-    </label>
+  <!-- Role -->
+  <div class="field">
+    Role:
+    <select id="role">
+      <option value="">Select role</option>
+      <option value="general staff">General Staff</option>
+      <option value="developer">Developer</option>
+      <option value="system analyst">System Analyst</option>
+    </select>
+  </div>
 
-    <button type="submit">Submit</button>
-
-  </form>
-</div>
+  <button type="submit">Submit</button>
+</form>
 
 <hr>
 
 <div id="resultSection" style="display:none;">
-  <h2>Submission Result</h2>
-
+  <h3>Submission Result</h3>
   <p id="rUsername"></p>
   <p id="rFirstname"></p>
   <p id="rLastname"></p>
   <p id="rGender"></p>
   <p id="rHobbies"></p>
   <p id="rRole"></p>
-
   <button onclick="goBack()">Back</button>
 </div>
 
 <script>
-  function submitForm() {
-    const username = document.getElementById("username").value;
-    const firstname = document.getElementById("firstname").value;
-    const lastname = document.getElementById("lastname").value;
-    const role = document.getElementById("role").value;
+function submitForm() {
+  const username = username.value;
+  const firstname = firstname.value;
+  const lastname = lastname.value;
+  const role = document.getElementById("role").value;
 
-    let gender = "";
-    document.querySelectorAll('input[name="gender"]').forEach((g) => {
-      if (g.checked) gender = g.value;
-    });
+  let gender = "";
+  document.querySelectorAll('input[name="gender"]').forEach(g => {
+    if (g.checked) gender = g.value;
+  });
 
-    let hobbies = [];
-    document.querySelectorAll('input[type="checkbox"]').forEach((h) => {
-      if (h.checked) hobbies.push(h.value);
-    });
+  let hobbies = [];
+  document.querySelectorAll('input[type="checkbox"]').forEach(h => {
+    if (h.checked) hobbies.push(h.value);
+  });
 
-    document.getElementById("rUsername").innerText = "Username: " + username;
-    document.getElementById("rFirstname").innerText = "Firstname: " + firstname;
-    document.getElementById("rLastname").innerText = "Lastname: " + lastname;
-    document.getElementById("rGender").innerText = "Gender: " + gender;
-    document.getElementById("rHobbies").innerText = "Hobbies: " + hobbies.join(", ");
-    document.getElementById("rRole").innerText = "Role: " + role;
+  rUsername.innerText = "Username: " + username;
+  rFirstname.innerText = "Firstname: " + firstname;
+  rLastname.innerText = "Lastname: " + lastname;
+  rGender.innerText = "Gender: " + gender;
+  rHobbies.innerText = "Hobbies: " + hobbies.join(", ");
+  rRole.innerText = "Role: " + role;
 
-    document.getElementById("formSection").style.display = "none";
-    document.getElementById("resultSection").style.display = "block";
-  }
+  document.querySelector("form").style.display = "none";
+  resultSection.style.display = "block";
+}
 
-  function goBack() {
-    document.getElementById("formSection").style.display = "block";
-    document.getElementById("resultSection").style.display = "none";
-  }
+function goBack() {
+  document.querySelector("form").style.display = "block";
+  resultSection.style.display = "none";
+}
 </script>
 
 </body>
