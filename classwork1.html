@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 8px;
+    }
+    button {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="formSection">
+  <h2>Register</h2>
+
+  <label>
+    Username:
+    <input type="text" id="username">
+  </label>
+
+  <label>
+    Firstname:
+    <input type="text" id="firstname">
+  </label>
+
+  <label>
+    Lastname:
+    <input type="text" id="lastname">
+  </label>
+
+  <label>Gender:</label>
+  <label><input type="radio" name="gender" value="male"> Male</label>
+  <label><input type="radio" name="gender" value="female"> Female</label>
+  <label><input type="radio" name="gender" value="other"> Other</label>
+
+  <label>Hobbies:</label>
+  <label><input type="checkbox" value="music"> Music</label>
+  <label><input type="checkbox" value="movies"> Movies</label>
+  <label><input type="checkbox" value="plastic model"> Plastic Model</label>
+
+  <label>
+    Role:
+    <select id="role">
+      <option value="">Select role</option>
+      <option value="general staff">General Staff</option>
+      <option value="developer">Developer</option>
+      <option value="system analyst">System Analyst</option>
+    </select>
+  </label>
+
+  <button onclick="submitForm()">Submit</button>
+</div>
+
+<hr>
+
+<div id="resultSection" style="display:none;">
+  <h2>Submission Result</h2>
+
+  <p id="rUsername"></p>
+  <p id="rFirstname"></p>
+  <p id="rLastname"></p>
+  <p id="rGender"></p>
+  <p id="rHobbies"></p>
+  <p id="rRole"></p>
+
+  <button onclick="goBack()">Back</button>
+</div>
+
+<script>
+  function submitForm() {
+    const username = document.getElementById("username").value;
+    const firstname = document.getElementById("firstname").value;
+    const lastname = document.getElementById("lastname").value;
+    const role = document.getElementById("role").value;
+
+    let gender = "";
+    document.querySelectorAll('input[name="gender"]').forEach((g) => {
+      if (g.checked) gender = g.value;
+    });
+
+    let hobbies = [];
+    document.querySelectorAll('input[type="checkbox"]').forEach((h) => {
+      if (h.checked) hobbies.push(h.value);
+    });
+
+    document.getElementById("rUsername").innerText = "Username: " + username;
+    document.getElementById("rFirstname").innerText = "Firstname: " + firstname;
+    document.getElementById("rLastname").innerText = "Lastname: " + lastname;
+    document.getElementById("rGender").innerText = "Gender: " + gender;
+    document.getElementById("rHobbies").innerText = "Hobbies: " + hobbies.join(", ");
+    document.getElementById("rRole").innerText = "Role: " + role;
+
+    document.getElementById("formSection").style.display = "none";
+    document.getElementById("resultSection").style.display = "block";
+  }
+
+  function goBack() {
+    document.getElementById("formSection").style.display = "block";
+    document.getElementById("resultSection").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
