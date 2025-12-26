@@ -12,6 +12,11 @@
       display: block;
       margin-top: 8px;
     }
+    input, select {
+      width: 250px;
+      padding: 4px;
+      margin-top: 4px;
+    }
     button {
       margin-top: 15px;
     }
@@ -22,42 +27,56 @@
 <div id="formSection">
   <h2>Register</h2>
 
-  <label>
-    Username:
-    <input type="text" id="username">
-  </label>
+  <!-- IMPORTANT: form with autocomplete -->
+  <form autocomplete="on" onsubmit="event.preventDefault(); submitForm();">
 
-  <label>
-    Firstname:
-    <input type="text" id="firstname">
-  </label>
+    <label>
+      Username:
+      <input type="text"
+             id="username"
+             name="username"
+             autocomplete="username">
+    </label>
 
-  <label>
-    Lastname:
-    <input type="text" id="lastname">
-  </label>
+    <label>
+      Firstname:
+      <input type="text"
+             id="firstname"
+             name="given-name"
+             autocomplete="given-name">
+    </label>
 
-  <label>Gender:</label>
-  <label><input type="radio" name="gender" value="male"> Male</label>
-  <label><input type="radio" name="gender" value="female"> Female</label>
-  <label><input type="radio" name="gender" value="other"> Other</label>
+    <label>
+      Lastname:
+      <input type="text"
+             id="lastname"
+             name="family-name"
+             autocomplete="family-name">
+    </label>
 
-  <label>Hobbies:</label>
-  <label><input type="checkbox" value="music"> Music</label>
-  <label><input type="checkbox" value="movies"> Movies</label>
-  <label><input type="checkbox" value="plastic model"> Plastic Model</label>
+    <label>Gender:</label>
+    <label><input type="radio" name="gender" value="male"> Male</label>
+    <label><input type="radio" name="gender" value="female"> Female</label>
+    <label><input type="radio" name="gender" value="other"> Other</label>
 
-  <label>
-    Role:
-    <select id="role">
-      <option value="">Select role</option>
-      <option value="general staff">General Staff</option>
-      <option value="developer">Developer</option>
-      <option value="system analyst">System Analyst</option>
-    </select>
-  </label>
+    <label>Hobbies:</label>
+    <label><input type="checkbox" value="music"> Music</label>
+    <label><input type="checkbox" value="movies"> Movies</label>
+    <label><input type="checkbox" value="plastic model"> Plastic Model</label>
 
-  <button onclick="submitForm()">Submit</button>
+    <label>
+      Role:
+      <select id="role" name="role">
+        <option value="">Select role</option>
+        <option value="general staff">General Staff</option>
+        <option value="developer">Developer</option>
+        <option value="system analyst">System Analyst</option>
+      </select>
+    </label>
+
+    <button type="submit">Submit</button>
+
+  </form>
 </div>
 
 <hr>
