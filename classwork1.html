@@ -1,96 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Registration Form</title>
+<meta charset="UTF-8">
+<title>Registration Form</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
 
-    .field {
-      margin-top: 10px;
-    }
+  .field {
+    margin-bottom: 10px;
+  }
 
-    input[type="text"], select {
-      width: 220px;
-      padding: 4px;
-    }
+  input[type="text"], select {
+    width: 220px;
+    padding: 5px;
+  }
 
-    .inline label {
-      margin-right: 15px;
-    }
+  .inline-group label {
+    margin-right: 12px;
+  }
 
-    button {
-      margin-top: 15px;
-    }
-  </style>
+  button {
+    margin-top: 10px;
+  }
+
+  #resultSection {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+</style>
 </head>
+
 <body>
 
 <h2>Register</h2>
 
-<form autocomplete="on" onsubmit="event.preventDefault(); submitForm();">
+<form onsubmit="event.preventDefault(); submitForm();">
 
   <!-- Username -->
   <div class="field">
     Username:
-    <input type="text" id="username" name="username" autocomplete="username">
+    <input type="text" id="username" required>
   </div>
 
-  <!-- Firstname (FORCED suggestion) -->
+  <!-- Firstname with auto-suggest -->
   <div class="field">
     Firstname:
-    <input type="text" id="firstname" list="fnameList">
+    <input type="text" id="firstname" list="fnameList" required>
     <datalist id="fnameList">
-      <option value="Phyo Yadanar">
-    </datalist>
-  </div>
-
-  <!-- Lastname (FORCED suggestion) -->
-  <div class="field">
-    Lastname:
-    <input type="text" id="lastname" list="lnameList">
-    <datalist id="lnameList">
+      <option value="Phyo">
+      <option value="Yadanar">
+      <option value="Aung">
       <option value="Min">
     </datalist>
   </div>
 
+  <!-- Lastname with auto-suggest -->
+  <div class="field">
+    Lastname:
+    <input type="text" id="lastname" list="lnameList" required>
+    <datalist id="lnameList">
+      <option value="Tun">
+      <option value="Min">
+      <option value="Oo">
+    </datalist>
+  </div>
+
   <!-- Gender -->
-  <div class="field inline">
+  <div class="field inline-group">
     Gender:
-    <label><input type="radio" name="gender" value="male"> Male</label>
-    <label><input type="radio" name="gender" value="female"> Female</label>
-    <label><input type="radio" name="gender" value="other"> Other</label>
+    <label><input type="radio" name="gender" value="Male"> Male</label>
+    <label><input type="radio" name="gender" value="Female"> Female</label>
+    <label><input type="radio" name="gender" value="Other"> Other</label>
   </div>
 
   <!-- Hobbies -->
-  <div class="field inline">
+  <div class="field inline-group">
     Hobbies:
-    <label><input type="checkbox" value="music"> Music</label>
-    <label><input type="checkbox" value="movies"> Movies</label>
-    <label><input type="checkbox" value="plastic model"> Plastic Model</label>
+    <label><input type="checkbox" value="Music"> Music</label>
+    <label><input type="checkbox" value="Movies"> Movies</label>
+    <label><input type="checkbox" value="Plastic Model"> Plastic Model</label>
   </div>
 
   <!-- Role -->
   <div class="field">
     Role:
-    <select id="role">
+    <select id="role" required>
       <option value="">Select role</option>
-      <option value="general staff">General Staff</option>
-      <option value="developer">Developer</option>
-      <option value="system analyst">System Analyst</option>
+      <option value="General Staff">General Staff</option>
+      <option value="Developer">Developer</option>
+      <option value="System Analyst">System Analyst</option>
     </select>
   </div>
 
   <button type="submit">Submit</button>
 </form>
 
-<hr>
-
-<div id="resultSection" style="display:none;">
+<!-- Result appears UNDER the form -->
+<div id="resultSection">
   <h3>Submission Result</h3>
   <p id="rUsername"></p>
   <p id="rFirstname"></p>
@@ -98,14 +109,13 @@
   <p id="rGender"></p>
   <p id="rHobbies"></p>
   <p id="rRole"></p>
-  <button onclick="goBack()">Back</button>
 </div>
 
 <script>
 function submitForm() {
-  const username = username.value;
-  const firstname = firstname.value;
-  const lastname = lastname.value;
+  const username = document.getElementById("username").value;
+  const firstname = document.getElementById("firstname").value;
+  const lastname = document.getElementById("lastname").value;
   const role = document.getElementById("role").value;
 
   let gender = "";
@@ -118,20 +128,12 @@ function submitForm() {
     if (h.checked) hobbies.push(h.value);
   });
 
-  rUsername.innerText = "Username: " + username;
-  rFirstname.innerText = "Firstname: " + firstname;
-  rLastname.innerText = "Lastname: " + lastname;
-  rGender.innerText = "Gender: " + gender;
-  rHobbies.innerText = "Hobbies: " + hobbies.join(", ");
-  rRole.innerText = "Role: " + role;
-
-  document.querySelector("form").style.display = "none";
-  resultSection.style.display = "block";
-}
-
-function goBack() {
-  document.querySelector("form").style.display = "block";
-  resultSection.style.display = "none";
+  document.getElementById("rUsername").innerText = "Username: " + username;
+  document.getElementById("rFirstname").innerText = "Firstname: " + firstname;
+  document.getElementById("rLastname").innerText = "Lastname: " + lastname;
+  document.getElementById("rGender").innerText = "Gender: " + gender;
+  document.getElementById("rHobbies").innerText = "Hobbies: " + hobbies.join(", ");
+  document.getElementById("rRole").innerText = "Role: " + role;
 }
 </script>
 
